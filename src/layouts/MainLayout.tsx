@@ -1,11 +1,39 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { Footer, LinkGroup } from "@/components";
 
 export const MainLayout = () => {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-900 text-white">
+    <div className="flex min-h-screen flex-col bg-indigo-950 text-fuchsia-400">
+      <header>
+        <nav className="flex justify-between bg-purple-950 p-4">
+          <div className="flex gap-8">
+            <Link className="flex items-center gap-2" to="/">
+              <img alt="FlickerPix Logo" className="h-10" src="/src/assets/logo.png" />
+              <h1 className="border-cyan-300 border-l-3 pl-2 font-bold text-3xl">Flickerpix</h1>
+            </Link>
+            <LinkGroup
+              options={[
+                { label: "Movie", match: "/movie/category/:category", to: "/movie/category/now_playing" },
+                { label: "TV", match: "/tv/category/:category", to: "/tv/category/airing_today" },
+                { label: "Trending", match: "/trending/:media", to: "/trending/movie?interval=day" },
+                { label: "Genre", match: "/genre/:media/:genre", to: "/genre/movie/action" },
+              ]}
+            />
+          </div>
+          <div className="flex gap-4">
+            <input
+              className="flex-1 rounded-xl bg-indigo-950 p-2 transition focus:outline-none focus:ring-2 focus:ring-fuchsia-600"
+              placeholder="Search..."
+              type="search"
+            />
+          </div>
+        </nav>
+        <div className="h-1 bg-cyan-600" />
+      </header>
       <main className="flex-1">
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 };

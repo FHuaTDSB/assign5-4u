@@ -12,3 +12,9 @@ export type ImageCell = {
   season?: number;
   media?: Media;
 };
+
+export type Genre = {
+  name: string;
+  label: string;
+  id: number;
+};

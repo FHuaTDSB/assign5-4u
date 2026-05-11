@@ -12,7 +12,7 @@ export const ImageGrid = ({ images, onClick, children }: ImageGridProps) => {
     <div className="grid grid-cols-5 gap-5">
       {images.map((image) => (
         <div
-          className={`relative overflow-hidden rounded-lg bg-gray-800 ${onClick ? "cursor-pointer transition hover:scale-[1.02]" : ""}`}
+          className={`relative overflow-hidden rounded-lg bg-blue-900 ${onClick ? "cursor-pointer transition hover:scale-[1.02] hover:bg-fuchsia-700 hover:text-white" : ""}`}
           key={image.id}
           onClick={() => onClick?.(image)}
         >
