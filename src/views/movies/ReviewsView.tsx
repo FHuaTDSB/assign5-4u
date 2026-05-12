@@ -1,3 +1,33 @@
+import { type ReviewsResponse, MOVIE_ENDPOINT, TV_ENDPOINT } from '@/core';
+import { useTmdb } from '@/hooks';
+import { useLocation, useParams } from 'react-router-dom';
+
 export const ReviewsView = () => {
-  return <div></div>;
+  const { id } = useParams();
+  const location = useLocation();
+  const media = location.pathname.slice(location.pathname.indexOf('/') + 1, location.pathname.indexOf('/') + 2) == 'm' ? 'movie' : 'tv';
+  const { data } =
+    media == 'movie'
+      ? useTmdb<ReviewsResponse>(`${MOVIE_ENDPOINT}/${id}/reviews`, {})
+      : useTmdb<ReviewsResponse>(`${TV_ENDPOINT}/${id}/reviews`, {});
+
+  if (!data) {
+    return <p className="text-center text-gray-400">Loading...</p>;
+  }
+
+  return (
+    <section className="space-y-5 p-5">
+      <h2 className="text-2xl font-bold">Reviews</h2>
+      {data.results.length ? (
+        data.results.slice(0, 5).map((review) => (
+          <div key={review.id} className="bg-gray-800 p-5 rounded-xl shadow">
+            <p className="text-sm text-gray-400 mb-2">By {review.author}</p>
+            <p className="text-gray-300 text-sm leading-relaxed line-clamp-6">{review.content}</p>
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-400 text-center">No reviews available.</p>
+      )}
+    </section>
+  );
 };

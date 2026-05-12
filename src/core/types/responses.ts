@@ -58,3 +58,29 @@ export type SummaryResponse = {
   vote_average: string;
   number_of_episodes: number;
 };
+
+export type CreditsResponse = {
+  cast: Array<{
+    id: number;
+    name: string;
+    profile_path: string;
+    character: string;
+  }>;
+};
+
+export type TrailersResponse = {
+  results: Array<{
+    key: string;
+    name: string;
+    site: string;
+    type: string;
+  }>;
+};
+
+export type ReviewsResponse = {
+  results: Array<{
+    id: string;
+    author: string;
+    content: string;
+  }>;
+};
