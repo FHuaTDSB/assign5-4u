@@ -14,7 +14,7 @@ export const Link = ({ children, to, match }: LinkProps) => {
   return (
     <NavLink
       className={({ isActive }) =>
-        `flex items-center rounded-md px-4 py-2 transition-all duration-200 ${
+        `flex items-center rounded-sm px-4 py-2 transition-all duration-200 ${
           isActive || isMatched
             ? "scale-105 bg-cyan-600 text-white shadow-lg"
             : "bg-fuchsia-800 text-fuchsia-200 hover:bg-fuchsia-600 hover:text-white"

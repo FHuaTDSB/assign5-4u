@@ -1,17 +1,14 @@
-import { MOVIE_ENDPOINT, type TrailersResponse, TV_ENDPOINT } from '@/core';
-import { useTmdb } from '@/hooks';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from "react-router-dom";
+import { MOVIE_ENDPOINT, type TrailersResponse, TV_ENDPOINT } from "@/core";
+import { useTmdb } from "@/hooks";
 
 export const TrailersView = () => {
   const { id } = useParams();
   const location = useLocation();
-  const media = location.pathname.slice(location.pathname.indexOf('/') + 1, location.pathname.indexOf('/') + 2) == 'm' ? 'movie' : 'tv';
-  const { data } =
-    media == 'movie'
-      ? useTmdb<TrailersResponse>(`${MOVIE_ENDPOINT}/${id}/videos`, {})
-      : useTmdb<TrailersResponse>(`${TV_ENDPOINT}/${id}/videos`, {});
-  const trailerVideo =
-    data?.results.find((video) => video.site === 'YouTube' && video.type === 'Trailer');
+  const media = location.pathname.slice(location.pathname.indexOf("/") + 1, location.pathname.indexOf("/") + 2) === "m" ? "movie" : "tv";
+  const endpoint = media === "movie" ? MOVIE_ENDPOINT : TV_ENDPOINT;
+  const { data } = useTmdb<TrailersResponse>(`${endpoint}/${id}/videos`, {});
+  const trailerVideo = data?.results.find((video) => video.site === "YouTube" && video.type === "Trailer");
 
   console.log(data);
   if (!data) {
@@ -20,18 +17,18 @@ export const TrailersView = () => {
 
   return (
     <section className="space-y-5 p-5">
-      <h2 className="text-2xl font-bold">Trailers</h2>
+      <h2 className="font-bold text-2xl">Trailers</h2>
       {trailerVideo ? (
         <div className="aspect-video">
           <iframe
-            className="w-1/2 h-1/2 rounded-xl"
+            allowFullScreen
+            className="h-1/2 w-1/2 rounded-xl"
             src={`https://www.youtube.com/embed/${trailerVideo.key}`}
             title={trailerVideo.name}
-            allowFullScreen
           />
         </div>
       ) : (
-        <p className="text-gray-400 text-center">No trailers available.</p>
+        <p className="text-center text-gray-400">No trailers available.</p>
       )}
     </section>
   );

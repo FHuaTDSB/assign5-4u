@@ -7,7 +7,7 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-const baseStyles = "px-4 py-2 text-sm rounded-md transition font-medium disabled:opacity-50 disabled:cursor-not-allowed";
+const baseStyles = "px-4 py-2 text-sm rounded-sm transition font-medium disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variants = {
   primary: "bg-cyan-600 hover:bg-cyan-500 text-white",

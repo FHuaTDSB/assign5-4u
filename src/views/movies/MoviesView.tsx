@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ImageGrid, LinkGroup, Pagination } from "@/components";
+import { Gallery, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, MoviesResponse } from "@/core";
 import { getImageUrl, MOVIE_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
@@ -32,7 +32,7 @@ export const MoviesView = () => {
           { label: "Upcoming", to: "/movie/category/upcoming" },
         ]}
       />
-      <ImageGrid images={gridData} onClick={(item) => navigate(`/movie/${item.id}/summary`)} />
+      <Gallery images={gridData} onClick={(item) => navigate(`/movie/${item.id}/summary`)} />
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
     </section>
   );

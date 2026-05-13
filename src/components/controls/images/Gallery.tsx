@@ -1,18 +1,18 @@
 import type { ReactNode } from "react";
 import type { ImageCell } from "@/core";
 
-type ImageGridProps = {
+type GalleryProps = {
   images: ImageCell[];
   onClick?: (image: ImageCell) => void;
   children?: (image: ImageCell) => ReactNode;
 };
 
-export const ImageGrid = ({ images, onClick, children }: ImageGridProps) => {
+export const Gallery = ({ images, onClick, children }: GalleryProps) => {
   return (
     <div className="grid grid-cols-5 gap-5">
       {images.map((image) => (
         <div
-          className={`relative overflow-hidden rounded-lg bg-blue-900 ${onClick ? "cursor-pointer transition hover:scale-[1.02] hover:bg-fuchsia-700 hover:text-white" : ""}`}
+          className={`relative overflow-hidden rounded-lg border-fuchsia-300 bg-blue-900 ${onClick ? "cursor-pointer transition hover:scale-[1.02] hover:border-2 hover:bg-fuchsia-700 hover:text-white" : ""}`}
           key={image.id}
           onClick={() => onClick?.(image)}
         >

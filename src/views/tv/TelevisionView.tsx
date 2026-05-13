@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ImageGrid, LinkGroup, Pagination } from "@/components";
+import { Gallery, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, TvResponse } from "@/core";
 import { getImageUrl, TV_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks/useTmdb";
@@ -32,7 +32,7 @@ export const TelevisionView = () => {
           { label: "Top Rated", to: "/tv/category/top_rated" },
         ]}
       />
-      <ImageGrid images={gridData} onClick={(item) => navigate(`/tv/${item.id}/summary`)} />
+      <Gallery images={gridData} onClick={(item) => navigate(`/tv/${item.id}/summary`)} />
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
     </section>
   );

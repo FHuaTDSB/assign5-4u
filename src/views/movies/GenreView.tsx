@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ImageGrid, LinkGroup, Pagination } from "@/components";
+import { Gallery, LinkGroup, Pagination } from "@/components";
 import type { Genre, SearchResponse } from "@/core";
 import { GENRE_ENDPOINT, getImageUrl } from "@/core";
 import { useTmdb } from "@/hooks";
@@ -71,7 +71,7 @@ export const GenreView = () => {
         ]}
       />
       <LinkGroup options={genreLinks} />
-      <ImageGrid images={gridData} onClick={(item) => navigate(`/${media}/${item.id}/summary`)} />
+      <Gallery images={gridData} onClick={(item) => navigate(`/${media}/${item.id}/summary`)} />
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
     </section>
   );

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { ImageGrid } from "@/components";
+import { Gallery } from "@/components";
 import { type CreditsResponse, getImageUrl, type ImageCell, MOVIE_ENDPOINT, TV_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
 
@@ -25,7 +25,7 @@ export const CreditsView = () => {
     <section className="space-y-5 p-5">
       <h2 className="mb-6 font-bold text-2xl">Credits</h2>
       {data.cast.length ? (
-        <ImageGrid images={gridData} onClick={(item) => navigate(`/person/${item.id}/career`)} />
+        <Gallery images={gridData} onClick={(item) => navigate(`/person/${item.id}/career`)} />
       ) : (
         <p className="text-center text-gray-400">No credits available.</p>
       )}

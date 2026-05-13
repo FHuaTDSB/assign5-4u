@@ -35,7 +35,7 @@ export const MovieView = () => {
       <div className="grid h-full grid-rows-[auto_1fr]">
         <img alt={data.title} className="h-60 w-full rounded-2xl object-cover" src={getBackdropUrl(data.backdrop_path)} />
         <div className="grid min-h-0 grid-cols-[auto_1fr] gap-5 p-5">
-          <img alt={data.title} className="w-60 rounded-xl object-cover" src={getImageUrl(data.poster_path)} />
+          <img alt={data.title} className="w-50 rounded-xl object-cover" src={getImageUrl(data.poster_path)} />
           <div className="space-y-4 overflow-y-auto">
             <div className="space-y-1">
               <h1 className="font-bold text-3xl">{media === "movie" ? data.title : data.name}</h1>

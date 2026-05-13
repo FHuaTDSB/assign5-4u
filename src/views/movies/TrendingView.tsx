@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ButtonGroup, ImageGrid, LinkGroup, Pagination } from "@/components";
+import { ButtonGroup, Gallery, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, SearchResponse } from "@/core";
 import { getImageUrl, TRENDING_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
@@ -48,7 +48,7 @@ export const TrendingView = () => {
           value={interval}
         />
       </div>
-      <ImageGrid images={gridData} onClick={(item) => navigate(`/${media}/${item.id}/summary`)} />
+      <Gallery images={gridData} onClick={(item) => navigate(`/${media}/${item.id}/summary`)} />
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
     </section>
   );

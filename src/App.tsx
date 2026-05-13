@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "@/layouts";
 import {
@@ -19,12 +20,16 @@ import {
   TrailersView,
   TrendingView,
 } from "@/views";
+import { useDebounce } from "./hooks";
 
 export const App = () => {
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 500);
+
   return (
     <Routes>
       <Route element={<HomeView />} path="/" />
-      <Route element={<MainLayout />}>
+      <Route element={<MainLayout query={query} setQuery={setQuery} />}>
         <Route path="/movie">
           <Route Component={() => <MoviesView key={window.location.pathname} />} path="category/:category" />
           <Route element={<MovieView />} path=":id">
