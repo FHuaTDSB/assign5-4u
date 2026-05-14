@@ -18,7 +18,7 @@ export const CreditsView = () => {
   }));
 
   if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
+    return <p className="text-center text-cyan-700">Loading...</p>;
   }
 
   return (
@@ -27,7 +27,7 @@ export const CreditsView = () => {
       {data.cast.length ? (
         <Gallery images={gridData} onClick={(item) => navigate(`/person/${item.id}/career`)} />
       ) : (
-        <p className="text-center text-gray-400">No credits available.</p>
+        <p className="text-center text-cyan-700">No credits available.</p>
       )}
     </section>
   );

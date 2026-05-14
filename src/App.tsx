@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import { MainLayout } from "@/layouts";
 import {
   CareerView,
@@ -23,13 +23,15 @@ import {
 import { useDebounce } from "./hooks";
 
 export const App = () => {
+  const [searchParams] = useSearchParams();
+  const type = searchParams.get("type") || "movie";
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
 
   return (
     <Routes>
       <Route element={<HomeView />} path="/" />
-      <Route element={<MainLayout query={query} setQuery={setQuery} />}>
+      <Route element={<MainLayout query={query} setQuery={setQuery} type={type} />}>
         <Route path="/movie">
           <Route Component={() => <MoviesView key={window.location.pathname} />} path="category/:category" />
           <Route element={<MovieView />} path=":id">
@@ -52,7 +54,7 @@ export const App = () => {
         </Route>
         <Route Component={() => <TrendingView key={window.location.pathname} />} path="/trending/:media" />
         <Route element={<GenreView />} path="/genre/:media/:genre" />
-        <Route element={<SearchView />} path="/search" />
+        <Route element={<SearchView debouncedQuery={debouncedQuery} type={type} />} path="/search" />
         <Route element={<PersonView />} path="/person/:id">
           <Route element={<CareerView />} path="career" />
           <Route element={<ImagesView />} path="images" />

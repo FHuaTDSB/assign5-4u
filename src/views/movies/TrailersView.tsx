@@ -12,7 +12,7 @@ export const TrailersView = () => {
 
   console.log(data);
   if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
+    return <p className="text-center text-cyan-700">Loading...</p>;
   }
 
   return (
@@ -28,7 +28,7 @@ export const TrailersView = () => {
           />
         </div>
       ) : (
-        <p className="text-center text-gray-400">No trailers available.</p>
+        <p className="text-center text-cyan-700">No trailers available.</p>
       )}
     </section>
   );

@@ -15,7 +15,7 @@ export const SeasonsView = () => {
   }));
 
   if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
+    return <p className="text-center text-cyan-700">Loading...</p>;
   }
 
   return (
@@ -24,7 +24,7 @@ export const SeasonsView = () => {
       {data.seasons.length ? (
         <Gallery images={gridData} onClick={(item) => navigate(`/tv/${id}/season/${item.id}`)} />
       ) : (
-        <p className="text-center text-gray-400">No seasons available.</p>
+        <p className="text-center text-cyan-700">No seasons available.</p>
       )}
     </section>
   );

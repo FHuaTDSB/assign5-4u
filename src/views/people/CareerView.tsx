@@ -15,7 +15,7 @@ export const CareerView = () => {
   }));
 
   if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
+    return <p className="text-center text-cyan-700">Loading...</p>;
   }
 
   return (
@@ -24,7 +24,7 @@ export const CareerView = () => {
       {data.cast.length ? (
         <Gallery images={gridData} onClick={(item) => navigate(`/movie/${item.id}/summary`)} />
       ) : (
-        <p className="text-center text-gray-400">No credits available.</p>
+        <p className="text-center text-cyan-700">No credits available.</p>
       )}
     </section>
   );

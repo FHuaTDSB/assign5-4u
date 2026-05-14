@@ -13,13 +13,13 @@ export const ImagesView = () => {
   }));
 
   if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
+    return <p className="text-center text-cyan-700">Loading...</p>;
   }
 
   return (
     <section className="space-y-5 p-5">
       <h2 className="mb-6 font-bold text-2xl">Images</h2>
-      {data.profiles.length ? <Gallery images={gridData} /> : <p className="text-center text-gray-400">No credits available.</p>}
+      {data.profiles.length ? <Gallery images={gridData} /> : <p className="text-center text-cyan-700">No images available.</p>}
     </section>
   );
 };

@@ -17,12 +17,12 @@ export const TrendingView = () => {
     media === "movie"
       ? (data?.results ?? []).map((result) => ({
           id: result.id,
-          imageUrl: getImageUrl(result.poster_path),
+          imageUrl: getImageUrl(result.poster_path ?? ""),
           primaryText: result.original_title,
         }))
       : (data?.results ?? []).map((result) => ({
           id: result.id,
-          imageUrl: getImageUrl(result.poster_path),
+          imageUrl: getImageUrl(result.poster_path ?? ""),
           primaryText: result.original_name,
         }));
 
