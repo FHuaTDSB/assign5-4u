@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Gallery, LinkGroup, Pagination } from "@/components";
+import { ImageOverlay } from "@/components/controls/images/ImageOverlay";
 import type { ImageCell, MoviesResponse } from "@/core";
-import { getImageUrl, MOVIE_ENDPOINT } from "@/core";
-import { useTmdb } from "@/hooks";
+import { favoriteAction, getImageUrl, MOVIE_ENDPOINT } from "@/core";
+import { useTmdb, useUserContext } from "@/hooks";
 
 export const MoviesView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
+  const { favorites, toggleFavorite } = useUserContext();
   const location = useLocation();
   const category: string = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
   const { data } = useTmdb<MoviesResponse>(`${MOVIE_ENDPOINT}/${category}`, { page });
@@ -32,7 +34,11 @@ export const MoviesView = () => {
           { label: "Upcoming", to: "/movie/category/upcoming" },
         ]}
       />
-      <Gallery images={gridData} onClick={(item) => navigate(`/movie/${item.id}/summary`)} />
+      <Gallery images={gridData} onClick={(item) => navigate(`/movie/${item.id}/summary`)}>
+        {(image) => (
+          <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
+        )}
+      </Gallery>
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
     </section>
   );

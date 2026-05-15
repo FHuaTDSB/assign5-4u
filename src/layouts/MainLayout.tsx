@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ButtonGroup, Footer, LinkGroup } from "@/components";
+import { useUserContext } from "@/hooks";
 
 type MainLayoutProps = {
   query: string;
@@ -9,11 +10,12 @@ type MainLayoutProps = {
 
 export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
   const navigate = useNavigate();
+  const { userName } = useUserContext();
 
   return (
     <div className="flex min-h-screen flex-col bg-indigo-950 text-fuchsia-400">
       <header>
-        <nav className="flex justify-between bg-purple-950 p-4">
+        <nav className="flex justify-between bg-purple-900 p-4">
           <div className="flex gap-8">
             <Link className="flex items-center gap-2" to="/">
               <img alt="FlickerPix Logo" className="h-10" src="/src/assets/logo.png" />
@@ -50,8 +52,15 @@ export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
             />
           </div>
         </nav>
-        <div className="h-1 bg-cyan-600" />
       </header>
+      <header>
+        <nav className="flex justify-between bg-purple-950 p-4">
+          <div className="flex">
+            <h1 className="border-blue-400 border-l-3 pl-2 font-bold text-3xl text-indigo-300">{`Hello ${userName}!`}</h1>
+          </div>
+        </nav>
+      </header>
+      <div className="h-1 bg-cyan-600" />
       <main className="flex-1">
         <Outlet />
       </main>

@@ -35,7 +35,7 @@ export const SummaryView = () => {
         <DetailItem
           icon={<FaStar />}
           label={media === "movie" ? "Rating" : "Episodes"}
-          value={media === "movie" ? data.vote_average : data.number_of_episodes}
+          value={media === "movie" ? `${data.vote_average} / 10` : data.number_of_episodes}
         />
       </div>
     </div>

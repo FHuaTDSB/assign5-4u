@@ -12,7 +12,7 @@ export const Gallery = ({ images, onClick, children }: GalleryProps) => {
     <div className="grid grid-cols-5 gap-5">
       {images.map((image) => (
         <div
-          className={`relative overflow-hidden rounded-lg border-fuchsia-300 bg-blue-900 ${onClick ? "cursor-pointer transition hover:scale-[1.02] hover:border-2 hover:bg-fuchsia-700 hover:text-white" : ""}`}
+          className={`relative overflow-hidden rounded-lg border-2 border-indigo-950 bg-blue-900 ${onClick ? "cursor-pointer transition hover:scale-[1.02] hover:border-fuchsia-300 hover:bg-fuchsia-700 hover:text-white" : ""}`}
           key={image.id}
           onClick={() => onClick?.(image)}
         >
