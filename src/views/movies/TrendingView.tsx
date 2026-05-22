@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ButtonGroup, Gallery, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, SearchResponse } from "@/core";
-import { getImageUrl, TRENDING_ENDPOINT } from "@/core";
+import { findPrice, getImageUrl, TRENDING_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
 
 export const TrendingView = () => {
@@ -19,6 +19,7 @@ export const TrendingView = () => {
           id: result.id,
           imageUrl: getImageUrl(result.poster_path ?? ""),
           primaryText: result.original_title,
+          secondaryText: result.release_date && `$${findPrice(result.release_date)}.99`,
         }))
       : (data?.results ?? []).map((result) => ({
           id: result.id,

@@ -3,6 +3,7 @@ export type MoviesResponse = {
     id: number;
     original_title: string;
     poster_path: string;
+    release_date: string;
   }>;
   total_pages: number;
 };
@@ -24,6 +25,7 @@ export type SearchResponse = {
     name?: string;
     poster_path?: string;
     profile_path?: string;
+    release_date?: string;
   }>;
   total_pages: number;
 };
@@ -92,6 +94,7 @@ export type SeasonsResponse = {
     name: string;
     poster_path: string;
     season_number: number;
+    air_date: string;
   }>;
 };
 
@@ -104,6 +107,7 @@ export type EpisodesResponse = {
     still_path: string;
   }>;
   season_number: number;
+  air_date: string;
 };
 
 export type PersonResponse = {

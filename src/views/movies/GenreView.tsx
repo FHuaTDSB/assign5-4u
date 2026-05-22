@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Gallery, LinkGroup, Pagination } from "@/components";
 import type { Genre, SearchResponse } from "@/core";
-import { GENRE_ENDPOINT, getImageUrl } from "@/core";
+import { findPrice, GENRE_ENDPOINT, getImageUrl } from "@/core";
 import { useTmdb } from "@/hooks";
 
 export const GenreView = () => {
@@ -51,6 +51,7 @@ export const GenreView = () => {
           id: result.id,
           imageUrl: getImageUrl(result.poster_path ?? ""),
           primaryText: result.original_title,
+          secondaryText: result.release_date && `$${findPrice(result.release_date)}.99`,
         }))
       : (data?.results ?? []).map((result) => ({
           id: result.id,

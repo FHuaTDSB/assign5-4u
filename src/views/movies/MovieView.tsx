@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { LinkGroup, Modal } from "@/components";
-import { getBackdropUrl, getImageUrl, type MediaResponse, MOVIE_ENDPOINT, TV_ENDPOINT } from "@/core";
+import { findPrice, getBackdropUrl, getImageUrl, type MediaResponse, MOVIE_ENDPOINT, TV_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
 
 export const MovieView = () => {
@@ -25,6 +25,7 @@ export const MovieView = () => {
           { label: "Trailers", to: "trailers" },
           { label: "Reviews", to: "reviews" },
         ];
+  console.log(media);
 
   if (!data) {
     return <p className="text-center text-cyan-700">Loading...</p>;
@@ -39,7 +40,10 @@ export const MovieView = () => {
           <div className="space-y-4 overflow-y-auto">
             <div className="space-y-1">
               <h1 className="font-bold text-3xl">{media === "movie" ? data.title : data.name}</h1>
-              <h1 className="font-bold text-cyan-300 text-xl">{data.tagline}</h1>
+              <div className="flex justify-between">
+                <h1 className="font-bold text-cyan-300 text-xl">{data.tagline}</h1>
+                {media === "movie" && <h1 className="font-bold text-cyan-300 text-xl">${findPrice(data.release_date)}.99</h1>}
+              </div>
             </div>
             <LinkGroup options={links} />
             <Outlet />

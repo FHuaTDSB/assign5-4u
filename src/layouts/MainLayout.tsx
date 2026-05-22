@@ -1,5 +1,9 @@
+import { BsCart } from "react-icons/bs";
+import { FaRegHeart } from "react-icons/fa";
+import { GoGear } from "react-icons/go";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ButtonGroup, Footer, LinkGroup } from "@/components";
+import { ICON_SIZE } from "@/core";
 import { useUserContext } from "@/hooks";
 
 type MainLayoutProps = {
@@ -10,7 +14,7 @@ type MainLayoutProps = {
 
 export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
   const navigate = useNavigate();
-  const { userName } = useUserContext();
+  const { userName, favourites, cart } = useUserContext();
 
   return (
     <div className="flex min-h-screen flex-col bg-indigo-950 text-fuchsia-400">
@@ -57,6 +61,27 @@ export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
         <nav className="flex justify-between bg-purple-950 p-4">
           <div className="flex">
             <h1 className="border-blue-400 border-l-3 pl-2 font-bold text-3xl text-indigo-300">{`Hello ${userName}!`}</h1>
+          </div>
+          <div>
+            <button className="relative rounded-full p-2 transition hover:bg-gray-700" onClick={() => navigate("/favorites")}>
+              <FaRegHeart size={ICON_SIZE} />
+              {favourites.size > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
+                  {favourites.size}
+                </span>
+              )}
+            </button>
+            <button className="relative rounded-full p-2 transition hover:bg-gray-700" onClick={() => navigate("/cart")}>
+              <BsCart size={ICON_SIZE} />
+              {cart.size > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
+                  {cart.size}
+                </span>
+              )}
+            </button>
+            <button className="relative rounded-full p-2 transition hover:bg-gray-700" onClick={() => navigate("/settings")}>
+              <GoGear size={ICON_SIZE} />
+            </button>
           </div>
         </nav>
       </header>
