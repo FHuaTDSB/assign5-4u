@@ -3,9 +3,11 @@ import { Route, Routes, useSearchParams } from "react-router-dom";
 import { MainLayout } from "@/layouts";
 import {
   CareerView,
+  CartView,
   CreditsView,
   EpisodeView,
   ErrorView,
+  FavouritesView,
   GenreView,
   HomeView,
   ImagesView,
@@ -15,6 +17,7 @@ import {
   ReviewsView,
   SearchView,
   SeasonsView,
+  SettingsView,
   SummaryView,
   TelevisionView,
   TrailersView,
@@ -59,8 +62,11 @@ export const App = () => {
           <Route element={<CareerView />} path="career" />
           <Route element={<ImagesView />} path="images" />
         </Route>
+        <Route element={<FavouritesView />} path="/favourites" />
+        <Route element={<CartView />} path="/cart" />
+        <Route element={<SettingsView />} path="/settings" />
+        <Route element={<ErrorView />} path="*" />
       </Route>
-      <Route element={<ErrorView />} path="*" />
     </Routes>
   );
 };

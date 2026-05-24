@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ButtonGroup, Gallery, LinkGroup, Pagination } from "@/components";
+import { ButtonGroup, Gallery, ImageOverlay, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, SearchResponse } from "@/core";
-import { findPrice, getImageUrl, TRENDING_ENDPOINT } from "@/core";
-import { useTmdb } from "@/hooks";
+import { favouriteAction, findPrice, getImageUrl, TRENDING_ENDPOINT } from "@/core";
+import { useTmdb, useUserContext } from "@/hooks";
 
 export const TrendingView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
+  const { favourites, toggleFavourite } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const { media } = useParams();
   const interval = searchParams.get("interval") || "day";
@@ -49,7 +50,16 @@ export const TrendingView = () => {
           value={interval}
         />
       </div>
-      <Gallery images={gridData} onClick={(item) => navigate(`/${media}/${item.id}/summary`)} />
+      <Gallery images={gridData} onClick={(item) => navigate(`/${media}/${item.id}/summary`)}>
+        {(image) =>
+          media === "movie" && (
+            <ImageOverlay
+              actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourite, "right")]}
+              image={image}
+            />
+          )
+        }
+      </Gallery>
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
     </section>
   );

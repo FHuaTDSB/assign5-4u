@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Gallery, LinkGroup, Pagination } from "@/components";
 import { ImageOverlay } from "@/components/controls/images/ImageOverlay";
 import type { ImageCell, MoviesResponse } from "@/core";
-import { favoriteAction, findPrice, getImageUrl, MOVIE_ENDPOINT } from "@/core";
+import { favouriteAction, findPrice, getImageUrl, MOVIE_ENDPOINT } from "@/core";
 import { useTmdb, useUserContext } from "@/hooks";
 
 export const MoviesView = () => {
@@ -38,7 +38,7 @@ export const MoviesView = () => {
       <Gallery images={gridData} onClick={(item) => navigate(`/movie/${item.id}/summary`)}>
         {(image) => (
           <ImageOverlay
-            actions={[favoriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourite, "right")]}
+            actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourite, "right")]}
             image={image}
           />
         )}

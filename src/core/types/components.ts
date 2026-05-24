@@ -21,6 +21,13 @@ export type Genre = {
   id: number;
 };
 
+export type StoredGenre = {
+  name: string;
+  label: string;
+  id: number;
+  active: boolean;
+};
+
 export type ImageAction = {
   id: string;
   icon: (active: boolean) => ReactNode;

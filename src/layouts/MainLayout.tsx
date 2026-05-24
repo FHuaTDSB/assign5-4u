@@ -14,7 +14,7 @@ type MainLayoutProps = {
 
 export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
   const navigate = useNavigate();
-  const { userName, favourites, cart } = useUserContext();
+  const { userName, favourites, cart, movieGenres } = useUserContext();
 
   return (
     <div className="flex min-h-screen flex-col bg-indigo-950 text-fuchsia-400">
@@ -30,7 +30,11 @@ export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
                 { label: "Movie", match: "/movie/category/:category", to: "/movie/category/now_playing" },
                 { label: "TV", match: "/tv/category/:category", to: "/tv/category/airing_today" },
                 { label: "Trending", match: "/trending/:media", to: "/trending/movie?interval=day" },
-                { label: "Genre", match: "/genre/:media/:genre", to: "/genre/movie/action" },
+                {
+                  label: "Genre",
+                  match: "/genre/:media/:genre",
+                  to: `/genre/movie/${movieGenres[movieGenres.findIndex((e) => e.active === true)].name}`,
+                },
               ]}
             />
           </div>
@@ -63,7 +67,7 @@ export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
             <h1 className="border-blue-400 border-l-3 pl-2 font-bold text-3xl text-indigo-300">{`Hello ${userName}!`}</h1>
           </div>
           <div>
-            <button className="relative rounded-full p-2 transition hover:bg-gray-700" onClick={() => navigate("/favorites")}>
+            <button className="relative rounded-full p-2 transition hover:bg-indigo-700" onClick={() => navigate("/favourites")}>
               <FaRegHeart size={ICON_SIZE} />
               {favourites.size > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
@@ -71,7 +75,7 @@ export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
                 </span>
               )}
             </button>
-            <button className="relative rounded-full p-2 transition hover:bg-gray-700" onClick={() => navigate("/cart")}>
+            <button className="relative rounded-full p-2 transition hover:bg-indigo-700" onClick={() => navigate("/cart")}>
               <BsCart size={ICON_SIZE} />
               {cart.size > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
@@ -79,7 +83,7 @@ export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
                 </span>
               )}
             </button>
-            <button className="relative rounded-full p-2 transition hover:bg-gray-700" onClick={() => navigate("/settings")}>
+            <button className="relative rounded-full p-2 transition hover:bg-indigo-700" onClick={() => navigate("/settings")}>
               <GoGear size={ICON_SIZE} />
             </button>
           </div>

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Gallery } from "@/components";
 import { ImageOverlay } from "@/components/controls/images/ImageOverlay";
-import { cartAction, favoriteAction, findPrice, getImageUrl, type ImageCell, type SeasonsResponse, TV_ENDPOINT } from "@/core";
+import { cartAction, favouriteAction, findPrice, getImageUrl, type ImageCell, type SeasonsResponse, TV_ENDPOINT } from "@/core";
 import { useTmdb, useUserContext } from "@/hooks";
 
 export const SeasonsView = () => {
@@ -29,7 +29,7 @@ export const SeasonsView = () => {
           {(image) => (
             <>
               <ImageOverlay
-                actions={[favoriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourite, "left")]}
+                actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourite, "left")]}
                 image={image}
               />
               <ImageOverlay actions={[cartAction((image: ImageCell) => cart.has(image.id), toggleCart, "right")]} image={image} />
