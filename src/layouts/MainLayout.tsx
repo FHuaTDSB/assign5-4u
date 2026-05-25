@@ -68,23 +68,26 @@ export const MainLayout = ({ query, setQuery, type }: MainLayoutProps) => {
           </div>
           <div>
             <button className="relative rounded-full p-2 transition hover:bg-indigo-700" onClick={() => navigate("/favourites")}>
-              <FaRegHeart size={ICON_SIZE} />
+              <FaRegHeart size={ICON_SIZE * 1.1} />
               {favourites.size > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
                   {favourites.size}
                 </span>
               )}
             </button>
-            <button className="relative rounded-full p-2 transition hover:bg-indigo-700" onClick={() => navigate("/cart")}>
-              <BsCart size={ICON_SIZE} />
+            <button className="relative rounded-full p-2 text-blue-400 transition hover:bg-indigo-700" onClick={() => navigate("/cart")}>
+              <BsCart size={ICON_SIZE * 1.1} />
               {cart.size > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
                   {cart.size}
                 </span>
               )}
             </button>
-            <button className="relative rounded-full p-2 transition hover:bg-indigo-700" onClick={() => navigate("/settings")}>
-              <GoGear size={ICON_SIZE} />
+            <button
+              className="relative rounded-full p-2 text-purple-400 transition hover:bg-indigo-700"
+              onClick={() => navigate("/settings")}
+            >
+              <GoGear size={ICON_SIZE * 1.1} />
             </button>
           </div>
         </nav>

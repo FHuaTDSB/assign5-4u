@@ -8,7 +8,7 @@ import { useTmdb, useUserContext } from "@/hooks";
 export const TrendingView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const { favourites, toggleFavourite } = useUserContext();
+  const { movieFavourites, toggleMovieFavourites } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const { media } = useParams();
   const interval = searchParams.get("interval") || "day";
@@ -54,7 +54,7 @@ export const TrendingView = () => {
         {(image) =>
           media === "movie" && (
             <ImageOverlay
-              actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourite, "right")]}
+              actions={[favouriteAction((image: ImageCell) => movieFavourites.has(image.id), toggleMovieFavourites, "right")]}
               image={image}
             />
           )

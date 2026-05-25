@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Gallery, Pagination } from "@/components";
-import { getImageUrl, type ImageCell, SEARCH_ENDPOINT, type SearchResponse } from "@/core";
-import { useTmdb } from "@/hooks";
+import { Gallery, ImageOverlay, Pagination } from "@/components";
+import { favouriteAction, getImageUrl, type ImageCell, SEARCH_ENDPOINT, type SearchResponse } from "@/core";
+import { useTmdb, useUserContext } from "@/hooks";
 
 type SearchViewProps = {
   debouncedQuery: string;
@@ -11,6 +11,7 @@ type SearchViewProps = {
 
 export const SearchView = ({ debouncedQuery, type }: SearchViewProps) => {
   const navigate = useNavigate();
+  const { movieFavourites, toggleMovieFavourites } = useUserContext();
   const [page, setPage] = useState<number>(1);
   const { data } = useTmdb<SearchResponse>(`${SEARCH_ENDPOINT}/${type}`, { page, query: debouncedQuery });
 
@@ -42,7 +43,16 @@ export const SearchView = ({ debouncedQuery, type }: SearchViewProps) => {
       <h2 className="mb-6 font-bold text-2xl">Results</h2>
       {gridData.length ? (
         <>
-          <Gallery images={gridData} onClick={(item) => navigate(`/${type}/${item.id}/${type === "person" ? "career" : "summary"}`)} />
+          <Gallery images={gridData} onClick={(item) => navigate(`/${type}/${item.id}/${type === "person" ? "career" : "summary"}`)}>
+            {(image) =>
+              type === "movie" && (
+                <ImageOverlay
+                  actions={[favouriteAction((image: ImageCell) => movieFavourites.has(image.id), toggleMovieFavourites, "right")]}
+                  image={image}
+                />
+              )
+            }
+          </Gallery>
           <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />{" "}
         </>
       ) : (

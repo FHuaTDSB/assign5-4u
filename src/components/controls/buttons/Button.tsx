@@ -11,7 +11,7 @@ const baseStyles = "px-4 py-2 text-sm rounded-sm transition font-medium disabled
 
 const variants = {
   primary: "bg-cyan-600 hover:bg-cyan-500 text-white",
-  red: "bg-indigo-800 text-white",
+  red: "bg-red-500 text-white",
   secondary: "bg-fuchsia-800 hover:bg-fuchsia-600 text-white",
 };
 
