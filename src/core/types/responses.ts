@@ -90,6 +90,7 @@ export type ReviewsResponse = {
 };
 
 export type SeasonsResponse = {
+  name: string;
   seasons: Array<{
     name: string;
     poster_path: string;

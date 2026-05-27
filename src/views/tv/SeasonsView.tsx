@@ -17,7 +17,9 @@ export const SeasonsView = () => {
     primaryText: result.name,
     season: result.season_number,
     secondaryText: result.air_date && `$${findPrice(result.air_date)}.99`,
+    showName: data?.name,
   }));
+  console.log(gridData);
 
   if (!data) {
     return <p className="text-center text-cyan-700">Loading...</p>;

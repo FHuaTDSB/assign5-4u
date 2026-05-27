@@ -65,8 +65,8 @@ export const App = () => {
         <Route element={<FavouritesView />} path="/favourites" />
         <Route element={<CartView />} path="/cart" />
         <Route element={<SettingsView />} path="/settings" />
-        <Route element={<ErrorView />} path="*" />
       </Route>
+      <Route element={<ErrorView />} path="*" />
     </Routes>
   );
 };

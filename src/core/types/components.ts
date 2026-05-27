@@ -9,7 +9,7 @@ export type ImageCell = {
   imageUrl: string;
   primaryText?: string;
   secondaryText?: string;
-  showId?: number;
+  showName?: string;
   seasonId?: number;
   season?: number;
   media?: Media;

@@ -36,25 +36,35 @@ export const FavouritesView = () => {
           value={media}
         />
       </div>
-      {favourites.size === 0 ? (
-        <p className="mt-10 text-cyan-700">You have no favorites yet.</p>
+      <div className="flex justify-between">
+        <h2 className="font-bold text-2xl text-indigo-400">{media === "movie" ? "Movies" : "TV"}</h2>
+        {gridData.length !== 0 && (
+          <Button
+            onClick={() => {
+              gridData.forEach((data) => {
+                toggleFavourites(data as ImageCell);
+              });
+            }}
+            variant="red"
+          >
+            Clear
+          </Button>
+        )}
+      </div>
+      {gridData.length === 0 ? (
+        <p className="mt-10 text-cyan-700">
+          No {media}
+          {media === "movie" && "s"}, only sadness...
+        </p>
       ) : (
-        <>
-          <div className="flex justify-between">
-            <h2 className="font-bold text-2xl text-indigo-400">{media === "movie" ? "Movies" : "TV"}</h2>
-            <Button onClick={() => {}} variant="red">
-              Clear
-            </Button>
-          </div>
-          <Gallery images={gridData as ImageCell[]} onClick={(image) => navigate(`/movie/${image.id}/credits`)}>
-            {(image) => (
-              <ImageOverlay
-                actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourites, "right")]}
-                image={image}
-              />
-            )}
-          </Gallery>
-        </>
+        <Gallery images={gridData as ImageCell[]} onClick={(image) => navigate(`/movie/${image.id}/credits`)}>
+          {(image) => (
+            <ImageOverlay
+              actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourites, "right")]}
+              image={image}
+            />
+          )}
+        </Gallery>
       )}
     </section>
   );
