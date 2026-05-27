@@ -11,7 +11,7 @@ type SearchViewProps = {
 
 export const SearchView = ({ debouncedQuery, type }: SearchViewProps) => {
   const navigate = useNavigate();
-  const { movieFavourites, toggleMovieFavourites } = useUserContext();
+  const { favourites, toggleFavourites } = useUserContext();
   const [page, setPage] = useState<number>(1);
   const { data } = useTmdb<SearchResponse>(`${SEARCH_ENDPOINT}/${type}`, { page, query: debouncedQuery });
 
@@ -20,6 +20,7 @@ export const SearchView = ({ debouncedQuery, type }: SearchViewProps) => {
       ? (data?.results ?? []).map((result) => ({
           id: result.id,
           imageUrl: getImageUrl(result.poster_path ?? ""),
+          media: "movie",
           primaryText: result.original_title,
         }))
       : type === "tv"
@@ -47,7 +48,7 @@ export const SearchView = ({ debouncedQuery, type }: SearchViewProps) => {
             {(image) =>
               type === "movie" && (
                 <ImageOverlay
-                  actions={[favouriteAction((image: ImageCell) => movieFavourites.has(image.id), toggleMovieFavourites, "right")]}
+                  actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourites, "right")]}
                   image={image}
                 />
               )

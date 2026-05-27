@@ -7,13 +7,15 @@ import { useTmdb, useUserContext } from "@/hooks";
 export const SeasonsView = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { favourites, toggleFavourite, cart, toggleCart } = useUserContext();
+  const { favourites, toggleFavourites, cart, toggleCart } = useUserContext();
   const { data } = useTmdb<SeasonsResponse>(`${TV_ENDPOINT}/${id}`, {});
 
   const gridData: ImageCell[] = (data?.seasons ?? []).map((result) => ({
-    id: result.season_number,
+    id: result.id,
     imageUrl: getImageUrl(result.poster_path),
+    media: "tv",
     primaryText: result.name,
+    season: result.season_number,
     secondaryText: result.air_date && `$${findPrice(result.air_date)}.99`,
   }));
 
@@ -25,11 +27,11 @@ export const SeasonsView = () => {
     <section className="space-y-5 p-5">
       <h2 className="mb-6 font-bold text-2xl">Seasons</h2>
       {data.seasons.length ? (
-        <Gallery images={gridData} onClick={(item) => navigate(`/tv/${id}/season/${item.id}`)}>
+        <Gallery images={gridData} onClick={(item) => navigate(`/tv/${id}/season/${item.season}`)}>
           {(image) => (
             <>
               <ImageOverlay
-                actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourite, "left")]}
+                actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourites, "left")]}
                 image={image}
               />
               <ImageOverlay actions={[cartAction((image: ImageCell) => cart.has(image.id), toggleCart, "right")]} image={image} />

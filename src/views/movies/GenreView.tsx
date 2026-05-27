@@ -8,7 +8,7 @@ import { useTmdb, useUserContext } from "@/hooks";
 export const GenreView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const { movieFavourites, toggleMovieFavourites, movieGenres, tvGenres } = useUserContext();
+  const { favourites, toggleFavourites, movieGenres, tvGenres } = useUserContext();
   const { media, genre } = useParams();
   const findGenre = (value: { name: string | undefined }) => {
     return value.name === genre;
@@ -28,6 +28,7 @@ export const GenreView = () => {
       ? (data?.results ?? []).map((result) => ({
           id: result.id,
           imageUrl: getImageUrl(result.poster_path ?? ""),
+          media: "movie",
           primaryText: result.original_title,
           secondaryText: result.release_date && `$${findPrice(result.release_date)}.99`,
         }))
@@ -54,7 +55,7 @@ export const GenreView = () => {
         {(image) =>
           media === "movie" && (
             <ImageOverlay
-              actions={[favouriteAction((image: ImageCell) => movieFavourites.has(image.id), toggleMovieFavourites, "right")]}
+              actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourites, "right")]}
               image={image}
             />
           )

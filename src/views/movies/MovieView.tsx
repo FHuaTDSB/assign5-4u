@@ -32,6 +32,7 @@ export const MovieView = () => {
       ? {
           id: data.id,
           imageUrl: getImageUrl(data.poster_path),
+          media: "movie",
           primaryText: data.title,
           secondaryText: `$${findPrice(data.release_date)}.99`,
         }

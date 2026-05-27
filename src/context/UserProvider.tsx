@@ -33,7 +33,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     { active: true, id: 9648, label: "Mystery", name: "mystery" },
     { active: true, id: 10765, label: "Sci-Fi", name: "sci-fi" },
   ]);
-  const [movieFavourites, setMovieFavourites] = useLocalStorage<Map<number, ImageCell>, [number, ImageCell][]>(FAVORITES_KEY, new Map(), {
+  const [favourites, setFavourites] = useLocalStorage<Map<number, ImageCell>, [number, ImageCell][]>(FAVORITES_KEY, new Map(), {
     deserialize: (entries) => new Map(entries),
     serialize: (map) => Array.from(map.entries()),
   });
@@ -42,36 +42,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     serialize: (map) => Array.from(map.entries()),
   });
 
-  const toggleMovieFavourites = (image: ImageCell) => {
-    setMovieFavourites((prev) => {
-      const cloned = new Map(prev);
-
-      if (cloned.has(image.id)) {
-        cloned.delete(image.id);
-      } else {
-        cloned.set(image.id, image);
-      }
-
-      return cloned;
-    });
-    setCart((prev) => {
-      const cloned = new Map(prev);
-
-      if (cloned.has(image.id)) {
-        cloned.delete(image.id);
-      }
-
-      return cloned;
-    });
-  };
-
-  const [tvFavourites, setTvFavourites] = useLocalStorage<Map<number, ImageCell>, [number, ImageCell][]>(FAVORITES_KEY, new Map(), {
-    deserialize: (entries) => new Map(entries),
-    serialize: (map) => Array.from(map.entries()),
-  });
-
-  const toggleTvFavourites = (image: ImageCell) => {
-    setMovieFavourites((prev) => {
+  const toggleFavourites = (image: ImageCell) => {
+    setFavourites((prev) => {
       const cloned = new Map(prev);
 
       if (cloned.has(image.id)) {
@@ -105,16 +77,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
       return cloned;
     });
-    setMovieFavourites((prev) => {
-      const cloned = new Map(prev);
-
-      if (cloned.has(image.id)) {
-        cloned.delete(image.id);
-      }
-
-      return cloned;
-    });
-    setTvFavourites((prev) => {
+    setFavourites((prev) => {
       const cloned = new Map(prev);
 
       if (cloned.has(image.id)) {
@@ -129,18 +92,14 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     <UserContext.Provider
       value={{
         cart,
-        movieFavourites,
+        favourites,
         movieGenres,
         setCart,
-        setMovieFavourites,
         setMovieGenres,
-        setTvFavourites,
         setTvGenres,
         setUserName,
         toggleCart,
-        toggleMovieFavourites,
-        toggleTvFavourites,
-        tvFavourites,
+        toggleFavourites,
         tvGenres,
         userName,
       }}

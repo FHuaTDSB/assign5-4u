@@ -9,7 +9,7 @@ import { useTmdb, useUserContext } from "@/hooks";
 export const MoviesView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const { movieFavourites, toggleMovieFavourites } = useUserContext();
+  const { favourites, toggleFavourites } = useUserContext();
   const location = useLocation();
   const category: string = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
   const { data } = useTmdb<MoviesResponse>(`${MOVIE_ENDPOINT}/${category}`, { page });
@@ -17,6 +17,7 @@ export const MoviesView = () => {
   const gridData: ImageCell[] = (data?.results ?? []).map((result) => ({
     id: result.id,
     imageUrl: getImageUrl(result.poster_path),
+    media: "movie",
     primaryText: result.original_title,
     secondaryText: `$${findPrice(result.release_date)}.99`,
   }));
@@ -38,7 +39,7 @@ export const MoviesView = () => {
       <Gallery images={gridData} onClick={(item) => navigate(`/movie/${item.id}/summary`)}>
         {(image) => (
           <ImageOverlay
-            actions={[favouriteAction((image: ImageCell) => movieFavourites.has(image.id), toggleMovieFavourites, "right")]}
+            actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourites, "right")]}
             image={image}
           />
         )}
