@@ -1,14 +1,15 @@
 import { FaRegHeart, FaRegTrashAlt } from "react-icons/fa";
 import { Button } from "@/components";
-import { fixPrice, ICON_SIZE } from "@/core";
+import { ICON_SIZE } from "@/core";
 import { useUserContext } from "@/hooks";
 
 export const CartView = () => {
   const { cart, setCart, toggleCart, toggleFavourites } = useUserContext();
-  const subTotal = fixPrice(
+  const subTotal = parseFloat(
     Array.from(cart.values())
       .map((value) => Number(value.secondaryText?.slice(1)))
-      .reduce((a, b) => a + b, 0),
+      .reduce((a, b) => a + b, 0)
+      .toFixed(2),
   );
 
   return (
@@ -49,9 +50,9 @@ export const CartView = () => {
                   <td className="p-3 text-indigo-400">{item.media === "movie" ? "Movie" : "TV Show"}</td>
                   <td className="p-3 text-purple-300">{item.secondaryText}</td>
                   <td className="p-3">
-                    <div className="flex justify-end gap-2">
+                    <div className="flex justify-end gap-1">
                       <button
-                        className="relative rounded-full p-2 text-fuchsia-400 transition hover:bg-indigo-700"
+                        className="relative rounded-full p-1 text-fuchsia-400 transition hover:bg-indigo-700"
                         onClick={(event) => {
                           event.stopPropagation();
                           toggleFavourites(item);
@@ -60,7 +61,7 @@ export const CartView = () => {
                         <FaRegHeart size={ICON_SIZE * 1.1} />
                       </button>
                       <button
-                        className="relative rounded-full p-2 text-red-400 transition hover:bg-indigo-700"
+                        className="relative rounded-full p-1 text-red-400 transition hover:bg-indigo-700"
                         onClick={(event) => {
                           event.stopPropagation();
                           toggleCart(item);
@@ -83,14 +84,14 @@ export const CartView = () => {
                 <td className="p-3 text-center font-semibold text-lg text-purple-400" colSpan={2}>
                   Taxes
                 </td>
-                <td className="p-3 text-center font-semibold text-lg text-purple-400">{`$${fixPrice(subTotal * 0.13)}`}</td>
+                <td className="p-3 text-center font-semibold text-lg text-purple-400">{`$${(subTotal * 0.13).toFixed(2)}`}</td>
                 <td></td>
               </tr>
               <tr className="bg-indigo-900 text-fuchsia-400 text-sm">
                 <td className="p-3 text-center font-semibold text-lg" colSpan={2}>
                   Total
                 </td>
-                <td className="p-3 text-center font-semibold text-lg">{`$${fixPrice(subTotal * 1.13)}`}</td>
+                <td className="p-3 text-center font-semibold text-lg">{`$${(subTotal * 1.13).toFixed(2)}`}</td>
                 <td></td>
               </tr>
             </tbody>

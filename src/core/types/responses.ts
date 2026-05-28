@@ -90,6 +90,7 @@ export type ReviewsResponse = {
 };
 
 export type SeasonsResponse = {
+  id: number;
   name: string;
   seasons: Array<{
     name: string;
@@ -101,6 +102,9 @@ export type SeasonsResponse = {
 };
 
 export type EpisodesResponse = {
+  name: string;
+  poster_path: string;
+  id: number;
   episodes: Array<{
     air_date: string;
     episode_number: number;

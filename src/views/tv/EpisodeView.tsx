@@ -27,11 +27,13 @@ export const EpisodeView = () => {
           <FaLongArrowAltLeft /> Back
         </div>
       </Button>
-      <div className="flex justify-between">
-        <h2 className="mb-6 font-bold text-2xl">Season {data.season_number}</h2>
-        <h1 className="font-bold text-cyan-300 text-xl">${findPrice(data.air_date)}.99</h1>
+      <div>
+        <div className="flex justify-between">
+          <h2 className="mb-6 font-bold text-2xl">Season {data.season_number}</h2>
+          <h1 className="font-bold text-cyan-300 text-xl">${findPrice(data.air_date)}.99</h1>
+        </div>
+        {data.episodes.length ? <Gallery images={gridData} /> : <p className="text-center text-gray-400">No seasons available.</p>}
       </div>
-      {data.episodes.length ? <Gallery images={gridData} /> : <p className="text-center text-gray-400">No seasons available.</p>}
     </section>
   );
 };

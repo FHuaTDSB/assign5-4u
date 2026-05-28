@@ -58,7 +58,6 @@ export const MovieView = () => {
                     onClick={(event) => {
                       event.stopPropagation();
                       imageCellData && toggleCart(imageCellData);
-                      console.log(cart);
                     }}
                   >
                     {cart.has(data.id) ? <BsCartFill size={ICON_SIZE * 1.2} /> : <BsCartPlus size={ICON_SIZE * 1.2} />}

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Gallery } from "@/components";
 import { ImageOverlay } from "@/components/controls/images/ImageOverlay";
-import { cartAction, favouriteAction, findPrice, getImageUrl, type ImageCell, type SeasonsResponse, TV_ENDPOINT } from "@/core";
+import { cartAction, favouriteAction, findPrice, getImageUrl, type ImageCell, type Media, type SeasonsResponse, TV_ENDPOINT } from "@/core";
 import { useTmdb, useUserContext } from "@/hooks";
 
 export const SeasonsView = () => {
@@ -10,16 +10,21 @@ export const SeasonsView = () => {
   const { favourites, toggleFavourites, cart, toggleCart } = useUserContext();
   const { data } = useTmdb<SeasonsResponse>(`${TV_ENDPOINT}/${id}`, {});
 
-  const gridData: ImageCell[] = (data?.seasons ?? []).map((result) => ({
-    id: result.id,
-    imageUrl: getImageUrl(result.poster_path),
-    media: "tv",
-    primaryText: result.name,
-    season: result.season_number,
-    secondaryText: result.air_date && `$${findPrice(result.air_date)}.99`,
-    showName: data?.name,
-  }));
-  console.log(gridData);
+  const gridData: Array<ImageCell | false> = (data?.seasons ?? [])
+    .map(
+      (result) =>
+        result.air_date !== null && {
+          id: result.id,
+          imageUrl: getImageUrl(result.poster_path),
+          media: "tv" as Media,
+          primaryText: result.name,
+          season: result.season_number,
+          secondaryText: result.air_date && `$${findPrice(result.air_date)}.99`,
+          showId: data?.id,
+          showName: data?.name,
+        },
+    )
+    .filter(Boolean);
 
   if (!data) {
     return <p className="text-center text-cyan-700">Loading...</p>;
@@ -29,7 +34,7 @@ export const SeasonsView = () => {
     <section className="space-y-5 p-5">
       <h2 className="mb-6 font-bold text-2xl">Seasons</h2>
       {data.seasons.length ? (
-        <Gallery images={gridData} onClick={(item) => navigate(`/tv/${id}/season/${item.season}`)}>
+        <Gallery images={gridData as ImageCell[]} onClick={(item) => navigate(`/tv/${id}/season/${item.season}`)}>
           {(image) => (
             <>
               <ImageOverlay

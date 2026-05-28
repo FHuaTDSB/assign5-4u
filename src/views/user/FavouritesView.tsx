@@ -16,7 +16,9 @@ export const FavouritesView = () => {
           imageUrl: result.imageUrl,
           media: result.media,
           primaryText: result.primaryText,
+          season: result.season,
           secondaryText: result.secondaryText,
+          showId: result.showId,
         },
     )
     .filter(Boolean);
@@ -57,7 +59,10 @@ export const FavouritesView = () => {
           {media === "movie" && "s"}, only sadness...
         </p>
       ) : (
-        <Gallery images={gridData as ImageCell[]} onClick={(image) => navigate(`/movie/${image.id}/credits`)}>
+        <Gallery
+          images={gridData as ImageCell[]}
+          onClick={(image) => navigate(media === "movie" ? `/movie/${image.id}/summary` : `/tv/${image.showId}/seasons`)}
+        >
           {(image) => (
             <ImageOverlay
               actions={[favouriteAction((image: ImageCell) => favourites.has(image.id), toggleFavourites, "right")]}
